@@ -11,6 +11,7 @@ public class Student {
 	private String name;
 	private String remark;
 	private Date birthday;
+	private Color color;
 	public int getId() {
 		return id;
 	}
@@ -35,10 +36,16 @@ public class Student {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
 	@Override
 	public String toString() {
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
 		return "Student [id=" + id + ", name=" + name + ", remark=" + remark
-				+ ", birthday=" + format.format(birthday) + "]";
+				+ ", birthday=" + birthday + ", color=" + color + "]";
 	}
+	
 }

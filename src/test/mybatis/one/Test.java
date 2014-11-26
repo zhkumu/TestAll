@@ -9,6 +9,7 @@ import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.type.EnumTypeHandler;
 
 import test.mybatis.one.bean.Student;
 import test.mybatis.one.mapper.StudentMapper;
@@ -30,6 +31,7 @@ public class Test {
 		Student student=mapper.getStudent(1);
 		
 		System.out.println(student);
+		
 		
 		
 //		Student addStudent=new Student();

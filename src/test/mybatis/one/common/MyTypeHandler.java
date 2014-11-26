@@ -46,6 +46,9 @@ public class MyTypeHandler extends BaseTypeHandler<Date> {
 	}
 	
 	private Date intToDate(int value){
+		if(value==0){
+			return null;
+		}
 		String dateStr=String.valueOf(value);
 		String year=dateStr.substring(0,4);
 		String month=dateStr.substring(4,6);

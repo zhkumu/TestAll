@@ -2,13 +2,20 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+  <settings>  
+        <setting name="logImpl" value="SLF4J"/>  
+    </settings> 
+
+
 	<typeAliases>
 		<package name="test.mybatis.one.bean" />
-		<package name="test.mybatis.one.common"/>
+		<package name="test.mybatis.one.common" />
 	</typeAliases>
 
 	<typeHandlers>
-		<package name="test.mybatis.one.common"/>
+		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+			javaType="test.mybatis.one.bean.Color" />
+		<package name="test.mybatis.one.common" />
 		<!-- <typeHandler handler="test.mybatis.one.common.MyTypeHandler"/> -->
 	</typeHandlers>
 
