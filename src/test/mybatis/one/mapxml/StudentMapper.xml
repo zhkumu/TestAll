@@ -4,4 +4,8 @@
   <select id="getStudent" resultType="Student">
     select * from student where id=#{id}
   </select>
+  
+  <insert id="addStudent" parameterType="Student">
+  	insert into student(`name`,remark,birthday)values(#{name},#{remark},#{birthday,typeHandler=MyTypeHandler})
+  </insert>
 </mapper>

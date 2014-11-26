@@ -4,7 +4,14 @@
 
 	<typeAliases>
 		<package name="test.mybatis.one.bean" />
+		<package name="test.mybatis.one.common"/>
 	</typeAliases>
+
+	<typeHandlers>
+		<package name="test.mybatis.one.common"/>
+		<!-- <typeHandler handler="test.mybatis.one.common.MyTypeHandler"/> -->
+	</typeHandlers>
+
 
 	<environments default="development">
 		<environment id="development">
@@ -17,8 +24,11 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
+
 	<mappers>
 		<mapper resource="test/mybatis/one/mapxml/StudentMapper.xml" />
 	</mappers>
+
+
+
 </configuration>
