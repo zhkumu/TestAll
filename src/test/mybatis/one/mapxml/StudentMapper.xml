@@ -1,11 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test.mybatis.one.mapper.StudentMapper">
-  <select id="getStudent" resultType="Student">
-    select * from student where id=#{id}
-  </select>
-  
-  <insert id="addStudent" parameterType="Student">
-  	insert into student(`name`,remark,birthday)values(#{name},#{remark},#{birthday,typeHandler=MyTypeHandler})
-  </insert>
+	<select id="getStudent" resultType="Student">
+		select * from student where id=#{id}
+	</select>
+
+	<insert id="addStudent" parameterType="Student">
+		insert into
+		student(`name`,remark,birthday)values(#{name},#{remark},#{birthday,typeHandler=MyTypeHandler})
+	</insert>
+
+	<select id="selectStudent" resultType="Student">
+		select * from student
+	<!-- 	<where>
+			<if test="id != 0 and id !=1 ">
+				id=#{id}
+			</if>
+			<if test="name != null and name !='' ">
+				and name=#{name}
+			</if>
+		</where> -->
+		
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="id != 0 and id !=1 ">
+				id=#{id}
+			</if>
+			<if test="name != null and name !='' ">
+				AND name=#{name}
+			</if>
+		</trim>
+	</select>
+	
+	<update id="updateStudent">
+		update student
+		
+		<set>
+			<if test="remark != null and remark !='' ">
+				remark=#{remark}
+			</if>
+			<if test="name != null and name !='' ">
+				name=#{name},
+			</if>
+		</set>
+		
+<!-- 		<trim prefix="Set" suffixOverrides=",">
+			<if test="remark != null and remark !='' ">
+				remark=#{remark},
+			</if>
+			<if test="name != null and name !='' ">
+				name=#{name}
+			</if>
+		</trim> -->
+		
+		where id=1
+	</update>
+	
+	<sql id="sel">
+		select * from student
+	</sql>
+	
+	<select id="selStudent" resultType="Student">
+		<include refid="sel"/>
+		where
+		<choose>
+			<when test="remark != null and remark !='' ">
+				remark=#{remark}
+			</when>
+			<when test="name != null and name !='' ">
+				name=#{name}
+			</when>
+			<otherwise>
+				id=#{id}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selStudentByName" resultType="Student">
+		<!-- _parameter 表示 传入的参数 , 如果只有一个参数 ，则它代表那个参数 ，如果有多个参数 ，则它是个map，键名对应参数名
+			 _databaseId 取出配置的databaseId，通过比较值采用适合的数据库sql语句，这样可以多数据库支持了
+		-->
+		<bind name="param" value="'%'+ _parameter.name +'%'"/>
+		<include refid="sel"/>
+		where name like #{param}
+	</select>
+	
+	<!-- 返回的是一个集合，那返回类型是集合中的具体类型而不是集合本身的类型 -->
+	<select id="getStudents" resultType="Student">
+		<include refid="sel"/>
+		where id in 
+		<foreach collection="ids" open="(" close=")" item="id" separator=",">
+			#{id}
+		</foreach>
+	</select>
+	
+	<!-- 一级缓存在spring中无效 -->
+	<!-- 二级缓存是在同一个mapper命名空间有效的 -->
 </mapper>
