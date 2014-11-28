@@ -2,10 +2,9 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-  <settings>  
-        <setting name="logImpl" value="SLF4J"/>  
-    </settings> 
-
+	<settings>
+		<setting name="logImpl" value="SLF4J" />
+	</settings>
 
 	<typeAliases>
 		<package name="test.mybatis.one.bean" />
@@ -19,7 +18,12 @@
 		<!-- <typeHandler handler="test.mybatis.one.common.MyTypeHandler"/> -->
 	</typeHandlers>
 
-
+	<plugins>
+		<plugin interceptor="test.mybatis.one.common.PagePlugin">
+			<property name="info" value="测试属性值" />
+		</plugin>
+	</plugins>
+	
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
@@ -35,7 +39,5 @@
 	<mappers>
 		<mapper resource="test/mybatis/one/mapxml/StudentMapper.xml" />
 	</mappers>
-
-
 
 </configuration>

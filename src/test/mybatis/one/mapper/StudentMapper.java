@@ -1,6 +1,7 @@
 package test.mybatis.one.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,8 @@ public interface StudentMapper {
 	Student selStudentByName(@Param("name")String name,@Param("remark") String remark);
 	
 	List<Student> getStudents(@Param("ids") List<Integer> ids);
+	
+	void getStudentId(Map map);
+	
+	String getStudnentName(Map map);
 }

@@ -93,6 +93,18 @@
 		</foreach>
 	</select>
 	
+	<!-- 输出参数必须指定mode和jdbctype，值必须为大写 -->
+	<select id="getStudentId" statementType="CALLABLE">
+		{call pro_selStudentId(#{name,mode=IN},#{id,mode=OUT,jdbcType=INTEGER})}
+	</select>
+	
+	<!-- 返回值必须指定mode为OUT和jdbctype，值必须为大写 -->
+	<select id="getStudnentName" statementType="CALLABLE">
+		{#{tname,mode=OUT,jdbcType=VARCHAR}= call pro_selStudentInfo(#{id})}
+	</select>
+	
+	
+	
 	<!-- 一级缓存在spring中无效 -->
 	<!-- 二级缓存是在同一个mapper命名空间有效的 -->
 </mapper>

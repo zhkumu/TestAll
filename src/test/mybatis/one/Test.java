@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.logging.LogFactory;
@@ -36,11 +38,20 @@ public class Test {
 //		
 //		System.out.println(student);
 		
-		List<Integer> ids=new ArrayList<Integer>();
-		ids.add(1);
-		ids.add(2);
-		List<Student> list=mapper.getStudents(ids);
-		System.out.println(list);
+		Map map=new HashMap();
+//		map.put("name", "mu");
+//		mapper.getStudentId(map);
+//		System.out.println(map.get("id"));
+
+		map.put("id", 1);
+		mapper.getStudnentName(map);
+		System.out.println(map);
+		
+//		List<Integer> ids=new ArrayList<Integer>();
+//		ids.add(1);
+////		ids.add(2);
+//		List<Student> list=mapper.getStudents(ids);
+//		System.out.println(list);
 		
 //		Student addStudent=new Student();
 //		addStudent.setName("wang1");
