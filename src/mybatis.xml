@@ -37,7 +37,12 @@
 	</environments>
 
 	<mappers>
-		<mapper resource="test/mybatis/one/mapxml/StudentMapper.xml" />
+<!-- 		<mapper resource="test/mybatis/one/mapxml/StudentMapper.xml" /> -->
+		<!-- <mapper resource="test/mybatis/one/mapxml/StudentMapper.xml" /> -->
+		
+		<mapper resource="test/mybatis/one/mapxml/HeadImgMapper.xml" />
+		<package name="test.mybatis.one.mapper.StudentMapper"/>  
+		
 	</mappers>
 
 </configuration>
