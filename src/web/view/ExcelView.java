@@ -16,9 +16,9 @@ public class ExcelView extends AbstractExcelView {
 	@Override
 	protected void buildExcelDocument(Map<String, Object> map,
 			HSSFWorkbook hssfworkbook, HttpServletRequest httpservletrequest,
-			HttpServletResponse httpservletresponse) throws Exception {
-		HSSFWorkbook wb = new HSSFWorkbook();// 创建Excel工作簿对象
-		HSSFSheet sheet = wb.createSheet("new sheet");// 创建Excel工作表对象
+			HttpServletResponse response) throws Exception {
+		response.setHeader("Content-Disposition", "attachment;filename="+new String("测试excel下载.xls".getBytes(),"iso8859-1"));
+		HSSFSheet sheet = hssfworkbook.createSheet("new sheet");// 创建Excel工作表对象
 		HSSFRow titleRow = sheet.createRow(0); // 创建Excel工作表的行
 		// CellStyle cellStyle = wb.createCellStyle();// 创建单元格样式
 		// row.createCell(0)
@@ -32,14 +32,13 @@ public class ExcelView extends AbstractExcelView {
 		}
 		List<List<String>> datas=(List<List<String>>)map.get("data");
 		int dataLength=datas.size();
-		for(int i=1;i<dataLength;i++){
+		for(int i=1;i<=dataLength;i++){
 			HSSFRow row = sheet.createRow(i);
 			List<String> list=(List<String>)datas.get(i-1);
 			for(int j=0;j<length;j++){
 				row.createCell(j).setCellValue(list.get(j));
 			}
 		}
-		
 	}
 
 }

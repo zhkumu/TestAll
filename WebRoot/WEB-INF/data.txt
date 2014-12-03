@@ -1,0 +1,6 @@
+1 客户端请求后在对目标方法签名进行分析前，要对请求过来的参数进行处理
+2 DataBinder是数据绑定的核心部分，先通过ConversionService对数据类型转化、数据格式化后，再通过Validator对数据合法性校验
+  最终的结果为BindingResult对象，这对象包含了处理后的请求参数和校验错误对象
+3 @DateTimeFormat not supported 缺少包 joda-time
+
+4 jsonview输出时间格式控制

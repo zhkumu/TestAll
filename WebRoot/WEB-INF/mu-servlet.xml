@@ -43,10 +43,9 @@
 		<property name="encoding" value="UTF8" />
 	</bean>
 	
-	<bean id="excel" class="org.springframework.web.servlet.view.xslt.AbstractXsltView">
-		<property name=""></property>
+	<!-- excel视图，前面已经注册了解析器，excel视图也是通过bean的id来返回 -->
+	<bean id="excel" class="web.view.ExcelView">
 	</bean>
-	
 	
 	<!-- 视图解析器 -->
 	<bean
