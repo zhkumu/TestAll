@@ -1,0 +1,31 @@
+1 多个拦截器执行过程
+	拦截器1 preHandle
+	拦截器2 preHandle
+	拦截器2 postHandle
+	拦截器1 postHandle
+	拦截器2 afterCompletion
+	拦截器1 afterCompletion
+	
+	如果拦截器1 preHandle返回false则过程如下
+	拦截器1 preHandle
+	
+	如果拦截器2 preHandle返回false则过程如下
+	拦截器1 preHandle
+	拦截器2 preHandle
+	拦截器1 afterCompletion
+
+2 配置
+<mvc:interceptors>
+	<mvc:interceptor>
+		<!--/** 匹配全部路径 -->
+		<mvc:mapping path="/**"/>
+		<bean class="web.view.MuHandlerInterceptor2" />
+	</mvc:interceptor>
+	<!-- 匹配全部路径，一般把匹配全部路径的拦截器放在最后 -->
+	<bean class="web.view.MuHandlerInterceptor" />
+</mvc:interceptors>
+
+3 通过
+handler instanceof ResourceHttpRequestHandler
+这个方法来判断拦截器的拦截的资源是不是静态资源，在高版本中有其它配置解决这个问题
+

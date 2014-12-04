@@ -4,6 +4,23 @@ controlloer返回逻辑视图名，视图解析器得到具体的视图实现类
 1、spring把视图抽象为View接口，各种视图实现技术有对应的View实现类
 2、为逻辑视图名提供了多种视图解析器，通过视图解析器得到视图实现类，最终得到视图
 3、视图解析器按指定的顺序来排序，从小到大
+4、配置，由于注册解析器，通过bean的名字来解析视图实现类
+<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<!-- 指定order 因为各视图解析器是通过优先级来进行解析的 -->
+	<property name="order" value="10" />
+</bean>
+<bean id="excel" class="web.view.ExcelView" />
+5、建议使用MappingJacksonHttpMessageConverter
+MappingJacksonJsonView
+返回的jsonview，但view的存在不少问题，虽然可以通过配置或继承扩展该类进行解决，但使用还是觉得不方便
+特别是，当请求的controller方法有某个bean对象时，它也会返回在结果中（可能也有解决方法，但没有找到）
+
+MappingJacksonHttpMessageConverter
+根据请求的报文头来确定，如果多种信息转换器，则可能由于没有报头得不到正确的解析
+但可能根据自己的需要进行自适应方便
+
+
+
 
 Configuration problem: Tag 'property' must have a 'name' attribute
 

@@ -38,7 +38,7 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/js/*"/>
+			<mvc:mapping path="/**"/>
 			<bean class="web.view.MuHandlerInterceptor2" />
 		</mvc:interceptor>
 		<bean class="web.view.MuHandlerInterceptor" />

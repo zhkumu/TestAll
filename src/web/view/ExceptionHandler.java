@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class ExceptionHandler implements HandlerExceptionResolver {
 
-	//只能处理controller中的方法执行过程中产生的异常
+	//只能处理controller中的方法在执行过程中产生的异常
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object obj,

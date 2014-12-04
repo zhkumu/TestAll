@@ -1,0 +1,18 @@
+1 上传配置，注册一个bean
+<!-- 上传文件处理 -->
+<bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<!-- 文件上传的编码格式 -->
+	<property name="defaultEncoding" value="utf-8" />
+	<!-- 文件大小控制，字节单位 -->
+	<property name="maxInMemorySize" value="1024" />
+	<!-- 临时文件目录，这个目录必须是根目录下，不指定则使用web容器的临时目录 -->
+	<!-- <property name="uploadTempDir" value="D://temp" /> -->
+</bean>
+
+2 需要jar包支持
+	commons-fileupload
+	commons-io
+
+3 controller方法参数，要指定@RequestParam参数名，否则会初始化不了MultipartFile类型参数，如下
+@RequestParam("file") MultipartFile file

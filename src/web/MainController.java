@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -84,5 +85,10 @@ public class MainController {
 			file.transferTo(toFile);
 		}
 		return "saveFile";
+	}
+	
+	@RequestMapping("/getParam")
+	public Object getParam(@RequestParam("id") int id){
+		return "1";
 	}
 }

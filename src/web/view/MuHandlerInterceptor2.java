@@ -20,7 +20,7 @@ public class MuHandlerInterceptor2 extends HandlerInterceptorAdapter {
 			System.out.println("静态资源3");
 			return ;
 		}
-		System.out.println("视图渲染后");
+		System.out.println("视图渲染后2");
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class MuHandlerInterceptor2 extends HandlerInterceptorAdapter {
 			System.out.println("静态资源2");
 			return ;
 		}
-		System.out.println("controller方法处理完成");
+		System.out.println("controller方法处理完成1");
 	}
 
 	//如果这里不返回true，则后面的拦截器就不会执行了
@@ -40,10 +40,10 @@ public class MuHandlerInterceptor2 extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 		if(handler instanceof ResourceHttpRequestHandler){
 			System.out.println("静态资源1");
-			return false;
+			return true;
 		}
-		System.out.println("进入controller方法前");
-		return false;
+		System.out.println("进入controller方法前2");
+		return true;
 	}
 
 	
