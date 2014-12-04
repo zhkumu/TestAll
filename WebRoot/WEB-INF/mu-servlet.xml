@@ -21,53 +21,79 @@
     http://www.springframework.org/schema/task  
 	http://www.springframework.org/schema/task/spring-task-3.0.xsd  
 	">
-<!-- 	<mvc:annotation-driven />
-	<mvc:default-servlet-handler/> -->
-	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-			<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-			</bean>
-			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean>
+				<!-- <bean
+					class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+				</bean> -->
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				</bean>
 			</list>
 		</property>
-	</bean> -->
-	<mvc:annotation-driven/>
+	</bean>
+	<mvc:annotation-driven />
 	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/js/*"/>
+			<bean class="web.view.MuHandlerInterceptor2" />
+		</mvc:interceptor>
+		<bean class="web.view.MuHandlerInterceptor" />
+	</mvc:interceptors>
+	
+	<bean id="exceptionHandler" class="web.view.ExceptionHandler"/>
+
 	<!-- json视图是通过Bean的id来返回 -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<!-- 指定order 因为各视图解析器是通过优先级来进行解析的 -->
 		<property name="order" value="10" />
 	</bean>
-	<bean id="json" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
-		<property name="encoding" value="UTF8" />
+	<!-- <bean id="json" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"> 
+		<property name="encoding" value="UTF8" /> <property name="objectMapper"> 
+		<bean class="org.codehaus.jackson.map.ObjectMapper"> <property name="dateFormat"> 
+		<bean class="java.text.SimpleDateFormat"> <constructor-arg value="yyyy-MM-dd 
+		HH:mm:ss" /> </bean> </property> </bean> </property> </bean> -->
+
+	<bean id="json" class="web.view.JsonView">
+		<property name="objectMapper">
+			<bean class="org.codehaus.jackson.map.ObjectMapper">
+				<property name="dateFormat">
+					<bean class="java.text.SimpleDateFormat">
+						<constructor-arg value="yyyy-MM-dd HH:mm:ss" />
+					</bean>
+				</property>
+			</bean>
+		</property>
 	</bean>
-	
+
 	<!-- excel视图，前面已经注册了解析器，excel视图也是通过bean的id来返回 -->
-	<bean id="excel" class="web.view.ExcelView">
-	</bean>
-	
+	<bean id="excel" class="web.view.ExcelView" />
+
 	<!-- 视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
+
 	<!-- 上传文件处理 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 文件上传的编码格式 -->
 		<property name="defaultEncoding" value="utf-8" />
 		<!-- 文件大小控制，字节单位 -->
 		<property name="maxInMemorySize" value="1024" />
 		<!-- 临时文件目录，这个目录必须是根目录下，不指定则使用web容器的临时目录 -->
-<!-- 		<property name="uploadTempDir" value="D://temp" /> -->
+		<!-- <property name="uploadTempDir" value="D://temp" /> -->
 	</bean>
-	
+
 	<!-- 静态文件指定，把/js/下的请求路径映射到项目的/js文件下 -->
- 	<mvc:resources mapping="/js/**" location="/js/" />
- 	
- 	
+	<mvc:resources mapping="/js/**" location="/js/" />
+
+
 	<context:component-scan base-package="web"></context:component-scan>
-	
+
 </beans>

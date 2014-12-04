@@ -24,9 +24,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				dataType:"JSON",
 				data:{r:Math.random()},
 				success:function(data){
-					alert(data);
+					console.log(data);
 				}
-				
 			});
 		});
 	</script>

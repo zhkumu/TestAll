@@ -4,3 +4,10 @@ controlloer返回逻辑视图名，视图解析器得到具体的视图实现类
 1、spring把视图抽象为View接口，各种视图实现技术有对应的View实现类
 2、为逻辑视图名提供了多种视图解析器，通过视图解析器得到视图实现类，最终得到视图
 3、视图解析器按指定的顺序来排序，从小到大
+
+Configuration problem: Tag 'property' must have a 'name' attribute
+
+MappingJacksonJsonView
+
+MappingJacksonHttpMessageConverter
+根据请求的报文头来确定

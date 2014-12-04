@@ -31,9 +31,11 @@ public class MainController {
 
 	// 返回json视图
 	@RequestMapping("/getJson")
-	public String getJson(Map map) {
+	@ResponseBody
+	public Object getJson(Map map) {
 		map.put("data", "json测试");
-		return "json";
+		throw new RuntimeException();
+		//return 1;
 	}
 
 	// 返回excel视图
