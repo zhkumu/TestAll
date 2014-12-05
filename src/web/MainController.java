@@ -29,7 +29,7 @@ public class MainController {
 	public String index() {
 		return "index";
 	}
-
+	
 	// 返回json视图
 	@RequestMapping("/getJson")
 	@ResponseBody
@@ -67,6 +67,13 @@ public class MainController {
 	public String getUser(Map map,UserInfo userInfo) {
 		map.put("data", userInfo);
 		return "json";
+	}
+	
+	// 返回json视图
+	@RequestMapping("/getUser2")
+	@ResponseBody
+	public Object getUser2(Map map,@RequestBody UserInfo userInfo) {
+		return userInfo;
 	}
 
 	// 上传文件

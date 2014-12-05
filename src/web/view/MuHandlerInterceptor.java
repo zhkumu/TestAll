@@ -43,7 +43,7 @@ public class MuHandlerInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		System.out.println("进入controller方法前1");
-		return false;
+		return true;
 	}
 
 	

@@ -20,21 +20,34 @@
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
     http://www.springframework.org/schema/task  
 	http://www.springframework.org/schema/task/spring-task-3.0.xsd  
-	">
+">
 
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	<!-- 注册了这个bean mvc:annotation-driven中的默认就会失效，相关属性就要指定例如webBindingInitializer -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<!-- <bean
 					class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
 				</bean> -->
+				<!-- @ResponseBody @RequestBody 则输出或输入不会再使用 conversionService-->
 				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+					<property name="objectMapper">
+					</property>
 				</bean>
 			</list>
 		</property>
+		<property name="webBindingInitializer">
+			<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+				<property name="conversionService">
+					<bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean"></bean>
+				</property>
+			</bean>
+		</property>
 	</bean>
-	<mvc:annotation-driven />
+	
+	<mvc:annotation-driven conversion-service="conversionService" />
+	
+	<bean id="conversionService"  class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
@@ -46,16 +59,25 @@
 	
 	<bean id="exceptionHandler" class="web.view.ExceptionHandler"/>
 
-	<!-- json视图是通过Bean的id来返回 -->
+ 	<!-- json视图是通过Bean的id来返回 -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<!-- 指定order 因为各视图解析器是通过优先级来进行解析的 -->
 		<property name="order" value="10" />
 	</bean>
-	<!-- <bean id="json" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"> 
-		<property name="encoding" value="UTF8" /> <property name="objectMapper"> 
-		<bean class="org.codehaus.jackson.map.ObjectMapper"> <property name="dateFormat"> 
-		<bean class="java.text.SimpleDateFormat"> <constructor-arg value="yyyy-MM-dd 
-		HH:mm:ss" /> </bean> </property> </bean> </property> </bean> -->
+	
+<!--  <bean id="json"
+	class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+	<property name="encoding" value="UTF8" />
+	<property name="objectMapper">
+		<bean class="org.codehaus.jackson.map.ObjectMapper">
+			<property name="dateFormat">
+				<bean class="java.text.SimpleDateFormat">
+					<constructor-arg value="yyyy-MM-dd HH:mm:ss" />
+				</bean>
+			</property>
+		</bean>
+	</property>
+</bean> -->
 
 	<bean id="json" class="web.view.JsonView">
 		<property name="objectMapper">
@@ -92,7 +114,6 @@
 
 	<!-- 静态文件指定，把/js/下的请求路径映射到项目的/js文件下 -->
 	<mvc:resources mapping="/js/**" location="/js/" />
-
 
 	<context:component-scan base-package="web"></context:component-scan>
 
