@@ -1,0 +1,6 @@
+1、bean 生命周期包含容器级生命周期和bean级生命周期
+其中容器级生命周期需要注册实现某些生命周期的接口实现类
+bean级生命周期则需要bean去实现某些接口，包括配置的init-method和destroy-method
+一般都使用配置init-method和destroy-method来控制bean生命周期中的一些处理（也可以用相应的注解）
+
+2、
