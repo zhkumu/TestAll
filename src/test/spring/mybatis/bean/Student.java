@@ -1,8 +1,9 @@
-package test.mybatis.one.bean;
+package test.spring.mybatis.bean;
 
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+
 
 @Alias("student")
 public class Student {
@@ -10,7 +11,7 @@ public class Student {
 	private String name;
 	private String remark;
 	private Date birthday;
-	private Color color;
+	private int color;
 	public int getId() {
 		return id;
 	}
@@ -35,10 +36,10 @@ public class Student {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	public Color getColor() {
+	public int getColor() {
 		return color;
 	}
-	public void setColor(Color color) {
+	public void setColor(int color) {
 		this.color = color;
 	}
 	@Override
@@ -46,5 +47,4 @@ public class Student {
 		return "Student [id=" + id + ", name=" + name + ", remark=" + remark
 				+ ", birthday=" + birthday + ", color=" + color + "]";
 	}
-	
 }
