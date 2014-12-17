@@ -3,8 +3,11 @@ package web;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import javax.enterprise.inject.New;
 
 import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.stereotype.Controller;
@@ -34,9 +37,11 @@ public class MainController {
 	@RequestMapping("/getJson")
 	@ResponseBody
 	public Object getJson(Map map) {
-		map.put("data", "json测试");
-		throw new RuntimeException();
-		//return 1;
+		UserInfo info=new UserInfo();
+		info.setBirthdayDate(new Date());
+		info.setId(1);
+		info.setName("mu");
+		return info;
 	}
 
 	// 返回excel视图

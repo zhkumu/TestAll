@@ -40,13 +40,9 @@ public class MuHandlerInterceptor extends HandlerInterceptorAdapter {
 			HttpServletResponse response, Object handler) throws Exception {
 		if(handler instanceof ResourceHttpRequestHandler){
 			System.out.println("静态资源1");
-			return false;
+			return true;
 		}
 		System.out.println("进入controller方法前1");
 		return true;
 	}
-
-	
-
-	
 }

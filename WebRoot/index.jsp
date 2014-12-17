@@ -26,7 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				success:function(data){
 					alert(data);
 				}
-				
 			});
 		});
 	</script>
