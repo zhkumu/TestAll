@@ -29,9 +29,13 @@
 				<!-- <bean
 					class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
 				</bean> -->
+				
+				<bean class="web.view.UserInfoHttpMessageConverter"></bean>
+				
 				<!-- @ResponseBody @RequestBody 则输出或输入不会再使用 conversionService-->
+				<!-- 全局转换 -->
 				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-					<!-- <property name="objectMapper">
+					<property name="objectMapper">
 						<bean class="org.codehaus.jackson.map.ObjectMapper">
 							<property name="dateFormat">
 								<bean class="java.text.SimpleDateFormat">
@@ -39,7 +43,7 @@
 								</bean>
 							</property>
 						</bean>
-					</property> -->
+					</property>
 				</bean>
 			</list>
 		</property>
