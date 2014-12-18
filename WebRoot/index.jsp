@@ -20,9 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		$(function(){
 			$.ajax({
-				url:"main/getJson",
+				url:"main/messageTest",
 				dataType:"JSON",
-				data:{r:Math.random()},
+				data:{"userInfo":"1,mu"},
 				success:function(data){
 					alert(data);
 				}

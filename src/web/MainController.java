@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.enterprise.inject.New;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,6 +43,14 @@ public class MainController {
 		info.setId(1);
 		info.setName("mu");
 		return info;
+	}
+	
+	// 返回json视图
+	@RequestMapping("/getJson2")
+	@ResponseBody
+	public Object getJson2(UserInfo  userInfo) {
+		userInfo.setBirthdayDate(new Date());
+		return userInfo;
 	}
 
 	// 返回excel视图
@@ -102,5 +111,12 @@ public class MainController {
 	@RequestMapping("/getParam")
 	public Object getParam(@RequestParam("id") int id){
 		return "1";
+	}
+	
+	@RequestMapping("/messageTest")
+	@ResponseBody
+	public  UserInfo messageTest(@RequestBody UserInfo userInfo){
+		userInfo.setName("testmu");
+		return userInfo;
 	}
 }

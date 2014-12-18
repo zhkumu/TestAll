@@ -2,6 +2,7 @@ package web.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.spec.ECField;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,9 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object obj,
 			Exception exception) {
+		exception.printStackTrace();
 		response.setHeader("Content-Type", "application/json");
+		
 		try {
 			PrintWriter pr= response.getWriter();
 			//当返回json格式结果时，需要做特殊处理，这里返回的任何结果都需要加字符串在外面，不然就不是json格式

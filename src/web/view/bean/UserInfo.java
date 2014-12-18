@@ -2,13 +2,18 @@ package web.view.bean;
 
 import java.util.Date;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import web.view.Date2Json;
 
 public class UserInfo {
 	private int id;
 	
 	private String name;
 	
+	//覆盖全局
+	@JsonSerialize(using=Date2Json.class)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthdayDate;
 
