@@ -32,7 +32,7 @@
 				
 				<bean class="web.view.UserInfoHttpMessageConverter"></bean>
 				
-				<!-- @ResponseBody @RequestBody 则输出或输入不会再使用 conversionService-->
+				<!-- @ResponseBody @RequestBody 则输出或输入不会再使用 conversionService，它们通过contenttype来判断使用哪个消息转换器-->
 				<!-- 全局转换 -->
 				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 					<property name="objectMapper">
@@ -49,12 +49,20 @@
 		</property>
 		<property name="webBindingInitializer">
 			<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-				<property name="conversionService">
-					<bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean"></bean>
+				<property name="conversionService" ref="conversionService">
 				</property>
 			</bean>
 		</property>
 	</bean>
+	
+	 <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">  
+     <property name="converters">  
+        <list>  
+        	<bean class="web.view.String2UserInfoConverter" />
+         </list>  
+    </property>  
+ </bean>  
+	
 	
 	<!-- <mvc:annotation-driven conversion-service="conversionService" /> -->
 	<mvc:annotation-driven />

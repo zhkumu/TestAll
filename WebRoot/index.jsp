@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -20,9 +20,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		$(function(){
 			$.ajax({
-				url:"main/messageTest",
+				url:"main/messageTest2",
 				dataType:"JSON",
-				data:{"userInfo":"1,mu"},
+				data:{"userInfo":"1,中文"},
+				contentType:"text/html",
+				type:"POST",
 				success:function(data){
 					alert(data);
 				}

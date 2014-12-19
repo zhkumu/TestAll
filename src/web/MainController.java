@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.enterprise.inject.New;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -113,10 +115,25 @@ public class MainController {
 		return "1";
 	}
 	
+	//测试自定义的httpmessageconverter
 	@RequestMapping("/messageTest")
 	@ResponseBody
 	public  UserInfo messageTest(@RequestBody UserInfo userInfo){
-		userInfo.setName("testmu");
 		return userInfo;
 	}
+	
+	@RequestMapping("/messageTest2")
+	public  ResponseEntity<UserInfo> messageTest2(HttpEntity<UserInfo> userInfo){
+		ResponseEntity<UserInfo> responseEntity=new ResponseEntity<UserInfo>(userInfo.getBody(),HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	//使用自定义的类型转换器，需要@RequestParam 指定参数名，不然不会走自定义的类型转换器
+	@RequestMapping("/getInfo4Str")
+	public String getInfo4Str(@RequestParam("userInfo") UserInfo userInfo){
+		System.out.println(userInfo);
+		return "upload";
+	}
+	
+	
 }
