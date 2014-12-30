@@ -51,10 +51,19 @@
 			<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
 				<property name="conversionService" ref="conversionService">
 				</property>
+				<property name="validator" ref="validator" />
 			</bean>
+			
 		</property>
 	</bean>
 	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:messages" />
+	</bean>
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >
+		<property name="validationMessageSource" ref="messageSource"></property>
+	</bean>
 	 <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">  
      <property name="converters">  
         <list>  

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.inject.New;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.view.ValidateBean;
 import web.view.bean.UserInfo;
 
 import com.google.gson.Gson;
@@ -29,7 +34,9 @@ import com.google.gson.Gson;
 @Controller
 @RequestMapping("/main")
 public class MainController {
-
+	private Gson gson=new Gson();
+	
+	
 	// 不指定为则/main对应这个方法
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index() {
@@ -135,5 +142,17 @@ public class MainController {
 		return "upload";
 	}
 	
-	
+	@RequestMapping("/validator")
+	@ResponseBody
+	public String validator(@Valid  @ModelAttribute("bean")ValidateBean bean, BindingResult bindingResult){
+		if(bindingResult.hasErrors()){
+			List<ObjectError> list= bindingResult.getAllErrors();
+			for(ObjectError error: list){
+				System.out.println(error.getDefaultMessage());
+			}
+			return  "error";
+		}
+		return  "success"; 
+		
+	}
 }
