@@ -29,4 +29,9 @@ public class TestA implements Serializable {
 		input.close();
 		return object;
 	}
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
 }
