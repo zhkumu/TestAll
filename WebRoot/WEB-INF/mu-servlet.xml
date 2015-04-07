@@ -29,60 +29,25 @@
 				<!-- <bean
 					class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
 				</bean> -->
-				
-				<bean class="web.view.UserInfoHttpMessageConverter"></bean>
-				
-				<!-- @ResponseBody @RequestBody 则输出或输入不会再使用 conversionService，它们通过contenttype来判断使用哪个消息转换器-->
-				<!-- 全局转换 -->
+				<!-- @ResponseBody @RequestBody 则输出或输入不会再使用 conversionService-->
 				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
-					<property name="objectMapper">
-						<bean class="org.codehaus.jackson.map.ObjectMapper">
-							<property name="dateFormat">
-								<bean class="java.text.SimpleDateFormat">
-									<constructor-arg value="yyyy-MM-dd HH:mm:ss" />
-								</bean>
-							</property>
-						</bean>
-					</property>
+					<!-- <property name="objectMapper">
+					</property> -->
 				</bean>
 			</list>
 		</property>
 		<property name="webBindingInitializer">
 			<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
-				<property name="conversionService" ref="conversionService">
+				<property name="conversionService">
+					<bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean"></bean>
 				</property>
-				<property name="validator" ref="validator" />
-				<property name="bindingErrorProcessor" ref="bindingErrorProcessor"></property>
 			</bean>
-			
 		</property>
 	</bean>
 	
-	<bean id="bindingErrorProcessor" class="web.view.MuBindingErrorProcessor"></bean>
+	<mvc:annotation-driven conversion-service="conversionService" />
 	
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basenames" value="messages" />
-	</bean>
-	
-<!--  	<bean id="messageCodeResolver" class="org.springframework.validation.DefaultMessageCodesResolver">  
-     	<property name="prefix" value="validation."></property>  
- 	</bean>   -->
-	
-	
-	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" >
-	</bean>
-	 <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">  
-     <property name="converters">  
-        <list>  
-        	<bean class="web.view.String2UserInfoConverter" />
-         </list>  
-    </property>  
- </bean>  
-	
-	
-	<!-- <mvc:annotation-driven conversion-service="conversionService" /> -->
-	<mvc:annotation-driven />
-<!-- 	<bean id="conversionService"  class="org.springframework.format.support.FormattingConversionServiceFactoryBean" /> -->
+	<bean id="conversionService"  class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
@@ -128,6 +93,27 @@
 
 	<!-- excel视图，前面已经注册了解析器，excel视图也是通过bean的id来返回 -->
 	<bean id="excel" class="web.view.ExcelView" />
+
+
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<prop key="kaptcha.border">no</prop>
+						<prop key="kaptcha.border.color">105,179,90</prop>
+						<prop key="kaptcha.textproducer.font.color">red</prop>
+						<prop key="kaptcha.image.width">100</prop>
+						<prop key="kaptcha.textproducer.font.size">48</prop>
+						<prop key="kaptcha.image.height">50</prop>
+						<prop key="kaptcha.session.key">code</prop>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
 
 	<!-- 视图解析器 -->
 	<bean

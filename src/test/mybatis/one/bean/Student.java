@@ -1,5 +1,6 @@
 package test.mybatis.one.bean;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;

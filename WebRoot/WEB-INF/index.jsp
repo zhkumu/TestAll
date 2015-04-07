@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -19,19 +19,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 	
 		$(function(){
-			$.ajax({
-				url:"main/getJson2",
+			/* $.ajax({
+				url:"main/getJson",
 				dataType:"JSON",
-				data:{r:Math.random(),"birthdayDate":"2014-01-20"},
+				data:{r:Math.random()},
 				success:function(data){
 					console.log(data);
 				}
-			});
+			}); */
 		});
 	</script>
   </head>
   
   <body>
     This is my JSP page. <br>
+    <img alt="验证码" src="main/valimg">
   </body>
 </html>

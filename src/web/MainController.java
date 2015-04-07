@@ -1,24 +1,22 @@
 package web;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.inject.New;
-import javax.validation.Valid;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.UserCredentialsDataSourceAdapter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,20 +24,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import web.view.ValidateBean;
 import web.view.bean.UserInfo;
 
+import com.google.code.kaptcha.Constants;
+import com.google.code.kaptcha.Producer;
 import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/main")
 public class MainController {
-	private Gson gson=new Gson();
-	
+
+	@Autowired
+	private Producer captchaProducer;
 	
 	// 不指定为则/main对应这个方法
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
+	public String index(HttpSession session) {
+		session.setAttribute("userName", "mu");
+		
+		return "index";
+	}
+	
+	@RequestMapping(value = "/getSession", method = RequestMethod.GET)
+	public String getSession(HttpSession session) {
+		System.out.println(session.getAttribute("userName"));
 		return "index";
 	}
 	
@@ -47,19 +55,9 @@ public class MainController {
 	@RequestMapping("/getJson")
 	@ResponseBody
 	public Object getJson(Map map) {
-		UserInfo info=new UserInfo();
-		info.setBirthdayDate(new Date());
-		info.setId(1);
-		info.setName("mu");
-		return info;
-	}
-	
-	// 返回json视图
-	@RequestMapping("/getJson2")
-	@ResponseBody
-	public Object getJson2(UserInfo  userInfo) {
-		userInfo.setBirthdayDate(new Date());
-		return userInfo;
+		map.put("data", "json测试");
+		throw new RuntimeException();
+		//return 1;
 	}
 
 	// 返回excel视图
@@ -122,37 +120,24 @@ public class MainController {
 		return "1";
 	}
 	
-	//测试自定义的httpmessageconverter
-	@RequestMapping("/messageTest")
-	@ResponseBody
-	public  UserInfo messageTest(@RequestBody UserInfo userInfo){
-		return userInfo;
-	}
-	
-	@RequestMapping("/messageTest2")
-	public  ResponseEntity<UserInfo> messageTest2(HttpEntity<UserInfo> userInfo){
-		ResponseEntity<UserInfo> responseEntity=new ResponseEntity<UserInfo>(userInfo.getBody(),HttpStatus.OK);
-		return responseEntity;
-	}
-	
-	//使用自定义的类型转换器，需要@RequestParam 指定参数名，不然不会走自定义的类型转换器
-	@RequestMapping("/getInfo4Str")
-	public String getInfo4Str(@RequestParam("userInfo") UserInfo userInfo){
-		System.out.println(userInfo);
-		return "upload";
-	}
-	
-	@RequestMapping("/validator")
-	@ResponseBody
-	public String validator(@Valid  @ModelAttribute("bean")ValidateBean bean, BindingResult bindingResult){
-		if(bindingResult.hasErrors()){
-			List<ObjectError> list= bindingResult.getAllErrors();
-			for(ObjectError error: list){
-				System.out.println(error.getDefaultMessage());
-			}
-			return  "error";
+	@RequestMapping("/valimg")
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setDateHeader("Expires", 0);
+		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+		response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+		response.setHeader("Pragma", "no-cache");
+		response.setContentType("image/jpeg");
+		String capText = captchaProducer.createText();
+		System.out.println(capText);
+		request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+		BufferedImage bi = captchaProducer.createImage(capText);
+		ServletOutputStream out = response.getOutputStream();
+		ImageIO.write(bi, "jpg", out);
+		try {
+			out.flush();
+		} finally {
+			out.close();
 		}
-		return  "success"; 
-		
+		return null;
 	}
 }
