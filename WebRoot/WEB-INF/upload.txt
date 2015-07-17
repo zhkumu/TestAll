@@ -1,18 +1,18 @@
-1 ÉÏ´«ÅäÖÃ£¬×¢²áÒ»¸öbean
-<!-- ÉÏ´«ÎÄ¼ş´¦Àí -->
+1 ä¸Šä¼ é…ç½®ï¼Œæ³¨å†Œä¸€ä¸ªbean
+<!-- ä¸Šä¼ æ–‡ä»¶å¤„ç† -->
 <bean id="multipartResolver"
 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<!-- ÎÄ¼şÉÏ´«µÄ±àÂë¸ñÊ½ -->
+	<!-- æ–‡ä»¶ä¸Šä¼ çš„ç¼–ç æ ¼å¼ -->
 	<property name="defaultEncoding" value="utf-8" />
-	<!-- ÎÄ¼ş´óĞ¡¿ØÖÆ£¬×Ö½Úµ¥Î» -->
+	<!-- æ–‡ä»¶å¤§å°æ§åˆ¶ï¼Œå­—èŠ‚å•ä½ -->
 	<property name="maxInMemorySize" value="1024" />
-	<!-- ÁÙÊ±ÎÄ¼şÄ¿Â¼£¬Õâ¸öÄ¿Â¼±ØĞëÊÇ¸ùÄ¿Â¼ÏÂ£¬²»Ö¸¶¨ÔòÊ¹ÓÃwebÈİÆ÷µÄÁÙÊ±Ä¿Â¼ -->
+	<!-- ä¸´æ—¶æ–‡ä»¶ç›®å½•ï¼Œè¿™ä¸ªç›®å½•å¿…é¡»æ˜¯æ ¹ç›®å½•ä¸‹ï¼Œä¸æŒ‡å®šåˆ™ä½¿ç”¨webå®¹å™¨çš„ä¸´æ—¶ç›®å½• -->
 	<!-- <property name="uploadTempDir" value="D://temp" /> -->
 </bean>
 
-2 ĞèÒªjar°üÖ§³Ö
+2 éœ€è¦jaråŒ…æ”¯æŒ
 	commons-fileupload
 	commons-io
 
-3 controller·½·¨²ÎÊı£¬ÒªÖ¸¶¨@RequestParam²ÎÊıÃû£¬·ñÔò»á³õÊ¼»¯²»ÁËMultipartFileÀàĞÍ²ÎÊı£¬ÈçÏÂ
+3 controlleræ–¹æ³•å‚æ•°ï¼Œè¦æŒ‡å®š@RequestParamå‚æ•°åï¼Œå¦åˆ™ä¼šåˆå§‹åŒ–ä¸äº†MultipartFileç±»å‹å‚æ•°ï¼Œå¦‚ä¸‹
 @RequestParam("file") MultipartFile file

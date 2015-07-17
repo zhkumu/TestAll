@@ -1,8 +1,8 @@
-1 �����е�bean����request��response��io���󶼻��Զ���
+1 方法中的bean对象、request、response和io对象都会自动绑定
 
 2 HttpMessageConverter
-������Ĳ���ת��Ϊ����ͬʱ�ֿ��԰Ѷ���ת��Ϊ��Ӧ��Ϣ
-@RequestBody ��������Ϣ���д���
-@ResponseBody ��ָ�����Ϊ��Ӧ��Ϣ
-ͨ������ͷ��ѡ����ص�ת������û�б�����ע���˳������
+把请求的参数转换为对象，同时又可以把对象转换为响应信息
+@RequestBody 把请求信息进行处理
+@ResponseBody 来指定输出为响应信息
+通过报文头来选定相关的转换器，没有报文则按注册的顺序来定
 

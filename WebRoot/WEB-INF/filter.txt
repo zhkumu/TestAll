@@ -1,31 +1,31 @@
-1 ¶à¸öÀ¹½ØÆ÷Ö´ĞĞ¹ı³Ì
-	À¹½ØÆ÷1 preHandle
-	À¹½ØÆ÷2 preHandle
-	À¹½ØÆ÷2 postHandle
-	À¹½ØÆ÷1 postHandle
-	À¹½ØÆ÷2 afterCompletion
-	À¹½ØÆ÷1 afterCompletion
+1 å¤šä¸ªæ‹¦æˆªå™¨æ‰§è¡Œè¿‡ç¨‹
+	æ‹¦æˆªå™¨1 preHandle
+	æ‹¦æˆªå™¨2 preHandle
+	æ‹¦æˆªå™¨2 postHandle
+	æ‹¦æˆªå™¨1 postHandle
+	æ‹¦æˆªå™¨2 afterCompletion
+	æ‹¦æˆªå™¨1 afterCompletion
 	
-	Èç¹ûÀ¹½ØÆ÷1 preHandle·µ»ØfalseÔò¹ı³ÌÈçÏÂ
-	À¹½ØÆ÷1 preHandle
+	å¦‚æœæ‹¦æˆªå™¨1 preHandleè¿”å›falseåˆ™è¿‡ç¨‹å¦‚ä¸‹
+	æ‹¦æˆªå™¨1 preHandle
 	
-	Èç¹ûÀ¹½ØÆ÷2 preHandle·µ»ØfalseÔò¹ı³ÌÈçÏÂ
-	À¹½ØÆ÷1 preHandle
-	À¹½ØÆ÷2 preHandle
-	À¹½ØÆ÷1 afterCompletion
+	å¦‚æœæ‹¦æˆªå™¨2 preHandleè¿”å›falseåˆ™è¿‡ç¨‹å¦‚ä¸‹
+	æ‹¦æˆªå™¨1 preHandle
+	æ‹¦æˆªå™¨2 preHandle
+	æ‹¦æˆªå™¨1 afterCompletion
 
-2 ÅäÖÃ
+2 é…ç½®
 <mvc:interceptors>
 	<mvc:interceptor>
-		<!--/** Æ¥ÅäÈ«²¿Â·¾¶ -->
+		<!--/** åŒ¹é…å…¨éƒ¨è·¯å¾„ -->
 		<mvc:mapping path="/**"/>
 		<bean class="web.view.MuHandlerInterceptor2" />
 	</mvc:interceptor>
-	<!-- Æ¥ÅäÈ«²¿Â·¾¶£¬Ò»°ã°ÑÆ¥ÅäÈ«²¿Â·¾¶µÄÀ¹½ØÆ÷·ÅÔÚ×îºó -->
+	<!-- åŒ¹é…å…¨éƒ¨è·¯å¾„ï¼Œä¸€èˆ¬æŠŠåŒ¹é…å…¨éƒ¨è·¯å¾„çš„æ‹¦æˆªå™¨æ”¾åœ¨æœ€å -->
 	<bean class="web.view.MuHandlerInterceptor" />
 </mvc:interceptors>
 
-3 Í¨¹ı
+3 é€šè¿‡
 handler instanceof ResourceHttpRequestHandler
-Õâ¸ö·½·¨À´ÅĞ¶ÏÀ¹½ØÆ÷µÄÀ¹½ØµÄ×ÊÔ´ÊÇ²»ÊÇ¾²Ì¬×ÊÔ´£¬ÔÚ¸ß°æ±¾ÖĞÓĞÆäËüÅäÖÃ½â¾öÕâ¸öÎÊÌâ
+è¿™ä¸ªæ–¹æ³•æ¥åˆ¤æ–­æ‹¦æˆªå™¨çš„æ‹¦æˆªçš„èµ„æºæ˜¯ä¸æ˜¯é™æ€èµ„æºï¼Œåœ¨é«˜ç‰ˆæœ¬ä¸­æœ‰å…¶å®ƒé…ç½®è§£å†³è¿™ä¸ªé—®é¢˜
 
