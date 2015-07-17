@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.mybatis.mapper.SystemUserMapper">
+	<resultMap type="systemUser" id="systemuser" autoMapping="true">
+		<id property="id" column="uid"/>
+		<result property="uName" column="uName"/>
+		<association property="role" column="rd" javaType="role" autoMapping="true">
+			<id property="id" column="rd" />
+			<result property="rName" column="roleName"/>
+			<collection property="permissions" column="pd" ofType="permission" autoMapping="true">
+				<id property="id" column="pd"/>
+			</collection>
+		</association>
+	</resultMap> 
+	<select id="getUserInof" resultMap="systemuser">
+		select u.id as uid,u.uName,r.id as rd, r.rName as roleName,p.id as pd,p.pName from systemuser as u , role as r, rolepermission as rp, permission as p
+		where u.id=#{uid} and u.rid=r.id and r.id=rp.rid and rp.pid=p.id 
+	</select>
+	
+	<resultMap type="systemUser" id="userrole" autoMapping="true">
+<!-- 		<id property="id" column="uid"/>
+		<result property="uName" column="uName"/> -->
+		<association property="role" column="rd" javaType="role" autoMapping="true">
+		<!-- 	<id property="id" column="rd"/>
+			<result property="rName" column="rName"/> -->
+		</association>
+	</resultMap> 
+	<select id="getUserRole" resultMap="userrole">
+		select u.id as uid ,u.uName ,r.id as rd ,r.rName  from systemuser as u, role as r
+		where u.id=#{uId} and u.rid=r.id
+	</select>
+	
+	
+	<resultMap type="role" id="rolepermission" autoMapping="true">
+		<collection property="permissions" ofType="permission" autoMapping="true"></collection>
+	</resultMap>
+	<select id="getRolePermission" resultMap="rolepermission">
+		select r.id as rd, r.rName,p.id as pd,p.pName from role as r, rolepermission as rp, permission as p 
+		where r.id=#{rid} and r.id=rp.rid and rp.pid=p.id 
+	</select>
+	
+</mapper>

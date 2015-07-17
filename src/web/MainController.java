@@ -26,16 +26,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.view.bean.UserInfo;
 
-import com.google.code.kaptcha.Constants;
-import com.google.code.kaptcha.Producer;
 import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/main")
 public class MainController {
 
-	@Autowired
-	private Producer captchaProducer;
+/*	@Autowired
+	private Producer captchaProducer;*/
 	
 	// 不指定为则/main对应这个方法
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -122,7 +120,7 @@ public class MainController {
 	
 	@RequestMapping("/valimg")
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setDateHeader("Expires", 0);
+		/*response.setDateHeader("Expires", 0);
 		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
 		response.addHeader("Cache-Control", "post-check=0, pre-check=0");
 		response.setHeader("Pragma", "no-cache");
@@ -137,7 +135,7 @@ public class MainController {
 			out.flush();
 		} finally {
 			out.close();
-		}
+		}*/
 		return null;
 	}
 }
